@@ -545,6 +545,7 @@ a:hover {
   }
 }
 
+
 .sidebar-title {
   font-size: 18px;
   font-weight: bold;
@@ -874,8 +875,8 @@ a:hover {
 
 .legend-toggle {
   position: absolute;
-  bottom: 30px;
-  left: 10px;
+  bottom: 70px;
+  left: 20px;
   background: white;
   color: #333;
   border: none;

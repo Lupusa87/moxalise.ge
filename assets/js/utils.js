@@ -92,9 +92,15 @@ function toggleLegend() {
   legend.classList.toggle('hidden');
 
   // Show/hide the toggle button based on legend visibility
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+
   if (legend.classList.contains('hidden')) {
+    toggleButton.style.display = mediaQuery.matches ? 'none' : 'block';
+  }
+  else {
     toggleButton.style.display = 'none';
   }
+
 }
 
 // Function to toggle panel
