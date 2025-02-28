@@ -126,9 +126,9 @@ function createPolygonCoordinates(map, centerLng, centerLat, sides = 6, sizeMult
   const radiusInMeters =
     Math.sqrt(targetAreaInSquareMeters / ((3 * Math.sqrt(3)) / 2)) * sizeMultiplier;
 
-  console.log(
-    `Creating polygon with ${radiusInMeters.toFixed(2)}m radius to cover ${targetAreaInSquareMeters}m² area (${targetAreaInSquareMeters / 1000000} km²)`
-  );
+  // console.log(
+  //   `Creating polygon with ${radiusInMeters.toFixed(2)}m radius to cover ${targetAreaInSquareMeters}m² area (${targetAreaInSquareMeters / 1000000} km²)`
+  // );
 
   // Earth's radius in meters
   const earthRadius = 6378137;
@@ -172,7 +172,7 @@ function calculatePointOffset(index, baseRadius) {
 
 // Function to highlight a polygon on the map
 function highlightPolygon(map, index, force = false) {
-  console.log(`Highlighting polygon with index: ${index}, force: ${force}`);
+  //console.log(`Highlighting polygon with index: ${index}, force: ${force}`);
 
   if (!force && !isMapReady(map)) {
     console.warn('Map is not ready for highlighting. Will retry in 500ms.');
@@ -199,7 +199,7 @@ function highlightPolygon(map, index, force = false) {
       const selectedFeature = currentData.features.find(f => f.properties.id === index);
 
       if (selectedFeature) {
-        console.log(`Found feature with id ${index}, resizing to 3x`);
+        //console.log(`Found feature with id ${index}, resizing to 3x`);
         // Get the current center of the polygon
         const coordinates = selectedFeature.geometry.coordinates[0];
         const centerLng =
@@ -220,7 +220,7 @@ function highlightPolygon(map, index, force = false) {
         // Update the source data
         map.getSource('locations').setData(currentData);
       } else {
-        console.log(`Feature with id ${index} not found in the data`);
+        //console.log(`Feature with id ${index} not found in the data`);
       }
     } else if (index === -1) {
       // If index is -1, restore all polygons to their original size
@@ -284,7 +284,7 @@ function highlightPolygon(map, index, force = false) {
       2, // default width
     ]);
 
-    console.log(`Successfully updated polygon styles for index ${index}`);
+    //console.log(`Successfully updated polygon styles for index ${index}`);
   } catch (error) {
     console.error('Error in highlightPolygon:', error);
   }
@@ -300,7 +300,7 @@ function highlightPolygon(map, index, force = false) {
       const pinElement = marker.marker.getElement().querySelector('.map-pin');
       if (pinElement) {
         pinElement.classList.add('highlighted');
-        console.log(`Added highlighted class to pin with id ${index}`);
+        //console.log(`Added highlighted class to pin with id ${index}`);
       }
     }
   });
@@ -312,7 +312,7 @@ function highlightPolygon(map, index, force = false) {
   const selectedCard = document.querySelector(`.card[data-index="${index}"]`);
   if (selectedCard) {
     selectedCard.classList.add('highlighted-card');
-    console.log(`Added highlighted-card class to card with data-index ${index}`);
+    //console.log(`Added highlighted-card class to card with data-index ${index}`);
 
     // Scroll the card into view if it's visible
     if (selectedCard.style.display !== 'none') {
@@ -324,7 +324,7 @@ function highlightPolygon(map, index, force = false) {
 // Function to restore all polygons to their original size
 function restorePolygonSizes(map) {
   try {
-    console.log('Restoring all polygon sizes');
+    //console.log('Restoring all polygon sizes');
     // Regenerate features with original sizes
     const features = updateFeatures(true);
 
@@ -340,7 +340,7 @@ function restorePolygonSizes(map) {
 
 // Add a simpler direct highlight function that doesn't rely on the map source
 function simpleHighlightPolygon(map, index) {
-  console.log(`Simple highlighting polygon with index: ${index}`);
+  //console.log(`Simple highlighting polygon with index: ${index}`);
 
   try {
     // Just highlight the card and pin without touching the map
@@ -355,7 +355,7 @@ function simpleHighlightPolygon(map, index) {
         const pinElement = marker.marker.getElement().querySelector('.map-pin');
         if (pinElement) {
           pinElement.classList.add('highlighted');
-          console.log(`Added highlighted class to pin with id ${index}`);
+          //console.log(`Added highlighted class to pin with id ${index}`);
         }
       }
     });
@@ -367,7 +367,7 @@ function simpleHighlightPolygon(map, index) {
     const selectedCard = document.querySelector(`.card[data-index="${index}"]`);
     if (selectedCard) {
       selectedCard.classList.add('highlighted-card');
-      console.log(`Added highlighted-card class to card with data-index ${index}`);
+      //console.log(`Added highlighted-card class to card with data-index ${index}`);
 
       // Scroll the card into view if it's visible
       if (selectedCard.style.display !== 'none') {
@@ -381,7 +381,7 @@ function simpleHighlightPolygon(map, index) {
 
 // Direct approach to highlight the polygon without relying on the map source
 function directHighlightPolygon(map, index) {
-  console.log(`Direct highlighting polygon with index: ${index}`);
+  //console.log(`Direct highlighting polygon with index: ${index}`);
 
   try {
     // Ensure map has required layers
@@ -448,7 +448,7 @@ function directHighlightPolygon(map, index) {
       2, // default width
     ]);
 
-    console.log(`Successfully updated polygon styles for index ${index}`);
+    //console.log(`Successfully updated polygon styles for index ${index}`);
 
     // Remove highlight from all pins
     document.querySelectorAll('.map-pin').forEach(pin => {
@@ -461,7 +461,7 @@ function directHighlightPolygon(map, index) {
         const pinElement = marker.marker.getElement().querySelector('.map-pin');
         if (pinElement) {
           pinElement.classList.add('highlighted');
-          console.log(`Added highlighted class to pin with id ${index}`);
+          //console.log(`Added highlighted class to pin with id ${index}`);
         }
       }
     });
@@ -473,7 +473,7 @@ function directHighlightPolygon(map, index) {
     const selectedCard = document.querySelector(`.card[data-index="${index}"]`);
     if (selectedCard) {
       selectedCard.classList.add('highlighted-card');
-      console.log(`Added highlighted-card class to card with data-index ${index}`);
+      //console.log(`Added highlighted-card class to card with data-index ${index}`);
 
       // Scroll the card into view if it's visible
       if (selectedCard.style.display !== 'none') {

@@ -444,3 +444,96 @@ function initInstructionTabs() {
     });
   });
 }
+
+// Phone Input Modal Functions
+function openPhoneInputModal() {
+  console.log('openPhoneInputModal called from modals.js');
+
+  // If the modal doesn't exist yet, create it dynamically
+  let modal = document.getElementById('phone-input-modal');
+
+  if (!modal) {
+    console.log('phone-input-modal not found, creating dynamically');
+
+    // Create the modal structure
+    modal = document.createElement('div');
+    modal.id = 'phone-input-modal';
+    modal.className = 'modal';
+
+    // Add modal content with more friendly messaging
+    modal.innerHTML = `
+      <div class="modal-content phone-input-modal-content">
+        <div class="modal-header">
+          <h2>გაზიარეთ თქვენი ლოკაცია</h2>
+          <span class="modal-close" onclick="closePhoneInputModal()">&times;</span>
+        </div>
+        <div class="modal-body phone-input-modal-body">
+          <p>გაზიარეთ თქვენი ლოკაცია ჩვენთან, რათა შეძლოთ დახმარების მიღება თქვენს მდებარეობაზე</p>
+          <form id="phone-input-form">
+            <div class="form-group">
+              <label for="phone-input">თქვენი მობილურის ნომერი (9 ციფრი, იწყება 5-ით)</label>
+              <input type="tel" id="phone-input" placeholder="5XXXXXXXX" required pattern="5[0-9]{8}" />
+              <small>მაგ.: 555123456</small>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="cancel-btn" onclick="closePhoneInputModal()">
+                გაუქმება
+              </button>
+              <button type="button" class="submit-btn" onclick="startLocationSharing()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="22" y1="12" x2="20" y2="12"></line><line x1="4" y1="12" x2="2" y2="12"></line></svg>
+                ლოკაციის გაზიარება
+              </button>
+            </div>
+          </form>
+          <div class="location-info">
+            <p>
+              <strong>შენიშვნა:</strong> ლოკაციის გაზიარების დაწყების შემდეგ, თქვენი ადგილმდებარეობა გაიგზავნება ყოველ 5
+              წუთში ერთხელ.
+            </p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Append to body
+    document.body.appendChild(modal);
+  }
+
+  // Force display block and ensure it's visible
+  console.log('Setting phone-input-modal display to block with !important');
+  modal.style.cssText = 'display: block !important; opacity: 1 !important; visibility: visible !important;';
+
+  // Try to populate the phone number from local storage
+  const savedPhone = localStorage.getItem('lastPhoneNumber');
+  if (savedPhone) {
+    const phoneInput = document.getElementById('phone-input');
+    if (phoneInput) {
+      phoneInput.value = savedPhone;
+    } else {
+      console.error('phone-input element not found!');
+    }
+  }
+
+  // Add a special class to indicate the modal is active
+  modal.classList.add('active');
+}
+
+function closePhoneInputModal() {
+  console.log('closePhoneInputModal called');
+  const modal = document.getElementById('phone-input-modal');
+  if (modal) {
+    console.log('Hiding phone-input-modal');
+    modal.style.cssText = 'display: none !important;';
+    modal.classList.remove('active');
+  } else {
+    console.error('phone-input-modal not found when trying to close it');
+  }
+}
+
+// Close phone input modal when clicking outside of it
+window.addEventListener('click', function (event) {
+  const phoneInputModal = document.getElementById('phone-input-modal');
+  if (event.target === phoneInputModal) {
+    closePhoneInputModal();
+  }
+});

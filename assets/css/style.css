@@ -1050,9 +1050,9 @@ a:hover {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: rgba(52, 152, 219, 0.6);
-  border: 3px solid rgba(41, 128, 185, 1);
-  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.4);
+  background-color: #3498db;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
   animation: pulse 2s infinite;
 }
 
@@ -1062,7 +1062,7 @@ a:hover {
   }
 
   70% {
-    box-shadow: 0 0 0 15px rgba(52, 152, 219, 0);
+    box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
   }
 
   100% {
@@ -1330,20 +1330,31 @@ a:hover {
 .modal {
   display: none;
   position: fixed;
-  top: 0;
+  z-index: 9999;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2500;
-  opacity: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
   transition: opacity 0.3s ease;
-  overflow: hidden;
-  /* Prevent body scrolling when modal is open */
 }
 
 .modal.active {
-  opacity: 1;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Override for specifically the phone input modal */
+#phone-input-modal.active {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#phone-input-modal .modal-content {
+  animation: modalFadeIn 0.3s ease forwards;
 }
 
 .modal-content {
@@ -2010,5 +2021,139 @@ a:hover {
   .maplibregl-ctrl-bottom-right {
     bottom: 125px !important;
     /* Position higher on mobile to avoid overlap with controls */
+  }
+}
+
+/* Phone Input Modal */
+.phone-input-modal-content {
+  max-width: 500px;
+  width: 90%;
+}
+
+.phone-input-modal-body {
+  padding: 20px;
+}
+
+#phone-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 5px;
+  transition: border-color 0.3s ease;
+}
+
+#phone-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+.location-info {
+  margin-top: 20px;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+/* Improved buttons for phone modal */
+.phone-input-modal-body .cancel-btn {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.phone-input-modal-body .submit-btn {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-input-modal-body .submit-btn:hover {
+  background-color: #2ecc71;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.phone-input-modal-body .submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.phone-input-modal-body .cancel-btn:hover {
+  background-color: #e9e9e9;
+}
+
+/* Add a subtle animation to draw attention to the submit button */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(46, 204, 113, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+  }
+}
+
+.phone-input-modal-body .submit-btn {
+  animation: pulse-green 2s infinite;
+}
+
+/* New styles for the stop location sharing button */
+.stop-location-button {
+  position: fixed;
+  bottom: 140px;
+  right: 10px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.stop-location-button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

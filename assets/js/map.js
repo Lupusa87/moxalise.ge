@@ -137,6 +137,9 @@ function initializeMap() {
     window.addEventListener('resize', updateLegendPosition);
 
     console.log('Map is now fully initialized and ready for highlighting');
+
+    // Dispatch the map_initialized event
+    window.dispatchEvent(new Event('map_initialized'));
   });
 }
 

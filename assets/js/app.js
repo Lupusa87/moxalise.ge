@@ -7,8 +7,33 @@ let customDropdowns = {};
 let currentSearchText = '';
 let tippyInstances = {};
 
+// Debug console logs for location functionality
+console.log('app.js loaded');
+
+/**
+ * Formats a value for display in the UI
+ * @param {*} value - The value to format
+ * @return {string} - The formatted value
+ */
+function formatValue(value) {
+  // If the value is a URL, make it a link
+  if (typeof value === 'string' && typeof isURL === 'function' && isURL(value)) {
+    return `<a href="${value}" target="_blank">${value}</a>`;
+  }
+
+  // If value is a string but contains newlines, replace with HTML line breaks
+  if (typeof value === 'string' && value.includes('\n')) {
+    return value.replace(/\n/g, '<br>');
+  }
+
+  // For other values, just convert to string
+  return String(value);
+}
+
 // Initialize application when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
+  console.log('DOMContentLoaded in app.js');
+
   // Initialize search functionality
   initializeSearch();
 
@@ -23,6 +48,18 @@ document.addEventListener('DOMContentLoaded', function () {
   if (notificationForm) {
     notificationForm.addEventListener('submit', submitNotification);
   }
+
+  // Check for potential function conflicts
+  console.log('showMyLocation exists:', typeof showMyLocation === 'function');
+  console.log('openPhoneInputModal exists:', typeof openPhoneInputModal === 'function');
+
+  // Debug UI elements
+  setTimeout(function () {
+    console.log('Checking DOM elements after initialization:');
+    console.log('phone-input-modal exists:', document.getElementById('phone-input-modal') !== null);
+    console.log('location-button exists:', document.querySelector('.location-button') !== null);
+    console.log('stop-location-button exists:', document.querySelector('.stop-location-button') !== null);
+  }, 1000);
 
   // Load data and initialize map
   loadData();
