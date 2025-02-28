@@ -28,6 +28,16 @@ function formatValue(value) {
 
 // Function to toggle tabs panel
 function toggleTabs() {
+
+  const toogleTabs1 = document.getElementById('toogleTabs1');
+
+  if (toogleTabs1.innerHTML === "მონაცემების პანელი") {
+    toogleTabs1.innerHTML = 'ინტერაქტიული რუკა';
+  }
+  else {
+    toogleTabs1.innerHTML = 'მონაცემების პანელი';
+  }
+
   const panel = document.getElementById('tabs-panel');
   const map = document.getElementById('map');
   const isHidden = panel.style.display === 'none' || !panel.style.display;
